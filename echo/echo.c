@@ -10,4 +10,5 @@ void echo(int connfd){
         printf("server received %d bytes\n",(int)n);
         rio_writen(connfd,buf,n);
     }
+    int i;
 }
