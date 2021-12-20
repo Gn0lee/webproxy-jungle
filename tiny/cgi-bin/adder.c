@@ -6,7 +6,7 @@
 
 int main(void) {
   
-  char *buf, *p;
+  char *buf, *p, *method;
   char arg1[MAXLINE] , arg2[MAXLINE], content[MAXLINE];
   int n1 = 0, n2 = 0;
   
@@ -19,6 +19,15 @@ int main(void) {
       n1 = atoi(arg1);
       n2 = atoi(arg2);
   }
+  // if ((buf = getenv("QUERY_STRING")) != NULL) {
+  //   p = strchr(buf, '&');
+  //   *p = '\0';
+  //   sscanf(buf, "first=%d", &n1);
+  //   sscanf(p+1, "second=%d", &n2);
+  // }
+
+  method = getenv("REQUEST_METHOD");
+
   /* Make the response body */
   sprintf(content, "QUERY_STRING=%s", buf);
   sprintf(content, "Welcome to add.com: ");
@@ -30,7 +39,11 @@ int main(void) {
   printf("Connection: close\r\n");
   printf("Content-length: %d\r\n", (int)strlen(content));
   printf("Content-type: text/html\r\n\r\n");
-  printf("%s", content);
+  
+  if(strcasecmp(method,"HEAD") != 0)
+    printf("%s",content);  
+
+  // printf("%s", content);
   fflush(stdout);
     
   exit(0);
