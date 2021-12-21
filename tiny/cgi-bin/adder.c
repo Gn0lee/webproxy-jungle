@@ -26,7 +26,7 @@ int main(void) {
   //   sscanf(p+1, "second=%d", &n2);
   // }
 
-  method = getenv("REQUEST_METHOD");
+  // method = getenv("REQUEST_METHOD");
 
   /* Make the response body */
   sprintf(content, "QUERY_STRING=%s", buf);
@@ -40,10 +40,10 @@ int main(void) {
   printf("Content-length: %d\r\n", (int)strlen(content));
   printf("Content-type: text/html\r\n\r\n");
   
-  if(strcasecmp(method,"HEAD") != 0)
-    printf("%s",content);  
+  // if(strcasecmp(method,"HEAD") != 0)
+  //   printf("%s",content);  
 
-  // printf("%s", content);
+  printf("%s", content);
   fflush(stdout);
     
   exit(0);
