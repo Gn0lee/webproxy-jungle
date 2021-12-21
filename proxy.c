@@ -14,22 +14,6 @@
 //   return 0;
 // }
 
-/*
- * proxy.c - CS:APP Web proxy
- *
- * TEAM MEMBERS:
- *     Brynjar Ýmir Birgisson, brynjarb06@ru.is
- *     Haukur Heiðar Leifsson, haukurl11@ru.is
-*      Randver Pálmi Gyðusson, randver10@ru.is
- *
- * This is our proxy server. We pass threads through struct. 
- * This was built upon tiny.c, it was implimented in the way that
- * the project description was set up to be, first we implemented
- * basic proxy server with logging and then added threads. 
- * there is a 0.1 second timeout on socket requests if there is nothing to read.
- * We also print out requests. 
- */
-
 #include <stdio.h>
 #include "csapp.h"
 /* Recommended max cache and object sizes */
@@ -149,8 +133,8 @@ void build_http_header(char *http_header,char *hostname,char *path,int port,rio_
         }
 
         if(!strncasecmp(buf,connection_key,strlen(connection_key))
-                &&!strncasecmp(buf,proxy_connection_key,strlen(proxy_connection_key))
-                &&!strncasecmp(buf,user_agent_key,strlen(user_agent_key)))
+                ||!strncasecmp(buf,proxy_connection_key,strlen(proxy_connection_key))
+                ||!strncasecmp(buf,user_agent_key,strlen(user_agent_key)))
         {
             strcat(other_hdr,buf);
         }
