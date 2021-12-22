@@ -57,7 +57,6 @@ typedef struct {
 
 typedef struct {
     cache_block cacheobjs[CACHE_OBJS_COUNT];  /*ten cache blocks*/
-    int cache_num;
 }Cache;
 
 Cache cache;
@@ -249,8 +248,9 @@ void parse_uri(char *uri,char *hostname,char *path,int *port)
 
 
 // Cache function
+
+//캐시 초기화
 void cache_init(){
-    cache.cache_num = 0;
     int i;
     for(i=0;i<CACHE_OBJS_COUNT;i++){
         cache.cacheobjs[i].LRU = 0;
