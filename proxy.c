@@ -303,7 +303,10 @@ int cache_find(char *url){
     int i;
     for(i=0;i<CACHE_OBJS_COUNT;i++){
         readerPre(i);
-        if((cache.cacheobjs[i].isEmpty==0) && (strcmp(url,cache.cacheobjs[i].cache_url)==0)) break;
+        if((cache.cacheobjs[i].isEmpty==0) && (strcmp(url,cache.cacheobjs[i].cache_url)==0)){
+            readerAfter(i);    
+            break;
+        }
         readerAfter(i);
     }
     if(i>=CACHE_OBJS_COUNT) return -1; /*can not find url in the cache*/
@@ -341,17 +344,11 @@ void cache_LRU(int index){
     writeAfter(index);
 
     int i;
-    for(i=0; i<index; i++)    {
+    for(i=0; i<CACHE_OBJS_COUNT; i++)    {
+        if(i==index)
+            continue;
         writePre(i);
-        if(cache.cacheobjs[i].isEmpty==0 && i!=index){
-            cache.cacheobjs[i].LRU--;
-        }
-        writeAfter(i);
-    }
-    i++;
-    for(i; i<CACHE_OBJS_COUNT; i++)    {
-        writePre(i);
-        if(cache.cacheobjs[i].isEmpty==0 && i!=index){
+        if(cache.cacheobjs[i].isEmpty==0){
             cache.cacheobjs[i].LRU--;
         }
         writeAfter(i);
